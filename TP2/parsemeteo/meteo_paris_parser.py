@@ -21,18 +21,22 @@ def extract_column_values(raw_data, col_num):
 if __name__ == "__main__":
     print()
 
-    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser = argparse.ArgumentParser(description='Processes statistical functions onto a file respecting Paris Meteo format')
 
-    parser.add_argument('file_name', metavar='F', type=str, nargs='1',
-                    help='The name of the file containing raw meteo data.')
-    parser.add_argument('column_number', metavar='C', type=int, nargs='*',
-                help='The number of the column to process.')              
-    parser.add_argument('action_type', metavar='A', type=str, nargs='*',
-                    help='The type of action to execute on the column.')
+    parser.add_argument('file_path', type=str,
+                    help='The path of the file containing raw meteo data') # , metavar='F', , nargs='1'
 
+    parser.add_argument('-c', '--column_number', type=int, nargs='?',
+                help='The number of the column to process')              
 
-    METEO_PARIS_FILE_NAME = "wrong_file_format.txt" # sys.argv[1]
-    meteo_paris_file_path = "parsemeteo/" + METEO_PARIS_FILE_NAME # os.getcwd() + "/parsemeteo/" + 
+    # parser.add_argument('--sum', metavar='S', type=str, nargs='*',
+    #                 help='The type of action to execute on the column.')
+
+    args = parser.parse_args()
+
+    meteo_paris_file_path = args.file_path
+    column_number = args.column_number
+    
     try:
         with open(meteo_paris_file_path, 'r') as meteo_raw_data_file:
             meteo_raw_data = meteo_raw_data_file.read()
